@@ -12,19 +12,7 @@ services:
             - volumes_source
         expose:
             - "9000"
-        links:
-            - mongo
-    php5:
-        container_name: php5
-        build:
-            context: ./php5
-        volumes_from:
-            - volumes_source
-        expose:
-            - "9000"
-        links:
-            - mariadb
-
+            
 ### Nginx Server Container ##################################
     nginx:
         container_name: nginx
@@ -36,10 +24,8 @@ services:
         volumes_from:
             - volumes_source
         ports:
-            - "8080:80"
-            - "8081:8080"
+            - "80:80"
         links:
-            - php5
             - php7
 
 ### phpMyAdmin Container ####################################
@@ -54,11 +40,7 @@ services:
         ports:
             - "8083:80"
         links:
-            # for mysql container
             - "mariadb:db"
-            # for mariadb container
-            # - "mariadb:db"
-
 
 ### MySQL Container #########################################
 
@@ -70,20 +52,10 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: homestead
-            MYSQL_USER: homestead
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: root
-
-### MongoDB Container #######################################
-
-    mongo:
-        container_name: mongo
-        build: ./mongo
-        ports:
-            - "27017:27017"
-        volumes_from:
-            - volumes_data
+            MYSQL_DATABASE: lotto
+            MYSQL_USER: the_lotto
+            MYSQL_PASSWORD: lotto@2017
+            MYSQL_ROOT_PASSWORD: thelotto@2017
 
 ### Databases Data Container ################################
 
@@ -91,9 +63,6 @@ services:
         image: tianon/true
         volumes:
             - ./data/mysql:/var/lib/mysql
-            - ./data/mongo:/data/db
-
-
 
 ### Application Code Container ######################
 

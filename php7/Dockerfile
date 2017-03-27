@@ -26,13 +26,6 @@ RUN docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include/freetype2 && \
     docker-php-ext-install gd
 
-#####################################
-# MongoDB:
-#####################################
-
-RUN pecl install mongodb && \
-    docker-php-ext-enable mongodb    
-
 ADD ./php.ini /usr/local/etc/php/conf.d
 ADD ./php.pool.conf /usr/local/etc/php-fpm.d/
 
