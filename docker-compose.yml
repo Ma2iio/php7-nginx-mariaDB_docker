@@ -19,7 +19,6 @@ services:
         build:
             context: ./nginx
             args:
-                - PHP5_UPSTREAM=php5
                 - PHP7_UPSTREAM=php7
         volumes_from:
             - volumes_source
